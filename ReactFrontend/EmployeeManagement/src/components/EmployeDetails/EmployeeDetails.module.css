@@ -4,6 +4,11 @@
     text-align: center;
 }
 
+
+.container h1{
+    color: #fff;
+}
+
 /* Error Message Styles */
 .error {
     color: red;

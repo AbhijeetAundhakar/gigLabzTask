@@ -1,6 +1,7 @@
 package com.employeemanagement.EmployeeManagement.controller;
 
 import com.employeemanagement.EmployeeManagement.model.Employee;
+import com.employeemanagement.EmployeeManagement.model.EmployeeDTO;
 import com.employeemanagement.EmployeeManagement.model.SalarySlipDTO;
 import com.employeemanagement.EmployeeManagement.model.User;
 import com.employeemanagement.EmployeeManagement.repository.EmployeeRepository;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/employees")
 //@CrossOrigin(origins = "http://localhost:5173")
@@ -56,9 +59,20 @@ public class EmployeeController {
     }
 
     @GetMapping("/getData")
-    public ResponseEntity<List<Employee>> getAllEmployees() {
+    public ResponseEntity<List<EmployeeDTO>> getAllEmployees() {
+//        List<Employee> employees = employeeService.getAllEmployees();
+//        return ResponseEntity.ok(employees);
+
+
         List<Employee> employees = employeeService.getAllEmployees();
-        return ResponseEntity.ok(employees);
+        List<EmployeeDTO> employeeDTOs = employees.stream()
+                .map(EmployeeDTO::new)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(employeeDTOs);
+
+
+
     }
 
     @GetMapping("/{id}")

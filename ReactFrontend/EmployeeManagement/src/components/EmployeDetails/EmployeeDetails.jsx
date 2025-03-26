@@ -45,29 +45,27 @@ const EmployeeDetails = () => {
 
     return (
         <div className={styles.container}>
-            <h1>Employee Details</h1>
+            <h1 className={styles.h1}>Employee Details</h1>
             {error && <p className={styles.error}>{error}</p>}
             <div className={styles.employeeGrid}>
-                {employees.map((employee) => {
-                    const salary = employee.salary || {}; // Handle missing salary object
-                    return (
-                        <div key={employee.id} className={styles.card}>
-                            <h2>{employee.name}</h2>
-                            <p><strong>Designation:</strong> {employee.designation}</p>
-                            <p><strong>Role:</strong> {employee.role}</p>
-                            <p><strong>Basic Salary:</strong> ${employee.basicSalary}</p>
-                            <p><strong>Gross Salary:</strong> ${salary.grossSalary ?? 'N/A'}</p>
-                            <p><strong>Tax Deduction:</strong> ${salary.taxDeduction ?? 'N/A'}</p>
-                            <p><strong>Net Salary:</strong> ${salary.netSalary ?? 'N/A'}</p>
-                            <button
-                                className={styles.updateButton}
-                                onClick={() => handleUpdate(employee.id)}
-                            >
-                                Update
-                            </button>
-                        </div>
-                    );
-                })}
+                {employees.map((employee) => (
+                    <div key={employee.id} className={styles.card}>
+                        <h2>{employee.name}</h2>
+                        <p><strong>Username:</strong> {employee.username}</p>
+                        <p><strong>Designation:</strong> {employee.designation}</p>
+                        <p><strong>Role:</strong> {employee.role}</p>
+                        <p><strong>Basic Salary:</strong> ${employee.basicSalary}</p>
+                        <p><strong>Gross Salary:</strong> ${employee.grossSalary ?? 'N/A'}</p>
+                        <p><strong>Tax Deduction:</strong> ${employee.taxDeduction ?? 'N/A'}</p>
+                        <p><strong>Net Salary:</strong> ${employee.netSalary ?? 'N/A'}</p>
+                        <button
+                            className={styles.updateButton}
+                            onClick={() => handleUpdate(employee.id)}
+                        >
+                            Update
+                        </button>
+                    </div>
+                ))}
             </div>
         </div>
     );
