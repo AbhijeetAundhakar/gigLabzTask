@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 
 const TestAPI = () => {
     const [message, setMessage] = useState('');
@@ -11,11 +10,20 @@ const TestAPI = () => {
                 const token = localStorage.getItem('jwtToken');
 
                 // Make a request to the secured API with Authorization header
-                const response = await axios.get('http://localhost:8080/employees/test', {
-                    headers: { Authorization: `Bearer ${token}` }
+                const response = await fetch('http://localhost:8080/employees/test', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
                 });
 
-                setMessage(response.data);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const data = await response.text(); // Assuming response is plain text
+                setMessage(data);
             } catch (error) {
                 console.error('Error fetching test message:', error);
                 setMessage('Error fetching test message.');
@@ -24,7 +32,6 @@ const TestAPI = () => {
 
         fetchTestMessage();
     }, []);
-
 
     return (
         <div>

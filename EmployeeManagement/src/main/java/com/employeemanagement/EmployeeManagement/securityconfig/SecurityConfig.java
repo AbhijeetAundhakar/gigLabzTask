@@ -136,7 +136,9 @@ public class SecurityConfig{
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.csrf(c -> c.disable())
+        httpSecurity.
+        cors().and().
+                csrf(c -> c.disable())
                 .authorizeHttpRequests(r -> r.requestMatchers("/employees/login", "/employees/role/**").permitAll().anyRequest().authenticated())
                 .httpBasic(b -> b.disable())
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
